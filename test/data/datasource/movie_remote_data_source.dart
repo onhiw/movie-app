@@ -23,7 +23,7 @@ void main() {
   });
 
   group('get Movies', () {
-    final tMovieList = (readJson('dummy_data/Movie.json') as List)
+    final tMovieList = (readJson('dummy_data/movie.json') as List)
         .map((x) => MovieModel.fromJson(json.decode(x)))
         .toList();
 
