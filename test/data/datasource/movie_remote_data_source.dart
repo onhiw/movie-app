@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:movie_app/data/datasources/movie_remote_data_source.dart';
 import 'package:movie_app/data/models/movie_model.dart';
 import 'package:movie_app/utils/exception.dart';
+import 'package:http/http.dart' as http;
 
 import '../../helpers/test_helper.mocks.dart';
 import '../../json_reader.dart';
