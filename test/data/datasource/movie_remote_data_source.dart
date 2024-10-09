@@ -30,7 +30,7 @@ void main() {
     test('should return list of Movie Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseUrl/Movie'))).thenAnswer(
+      when(mockHttpClient.get(Uri.parse(baseUrl))).thenAnswer(
           (_) async => http.Response(readJson('dummy_data/movie.json'), 200));
       // act
       final result = await dataSource.getMovie();
@@ -42,7 +42,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseUrl/Movie')))
+      when(mockHttpClient.get(Uri.parse(baseUrl)))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getMovie();
