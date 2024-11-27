@@ -17,7 +17,7 @@ void main() {
       voteAverage: 7.7,
       voteCount: 3168);
 
-  const movie = Movie(
+  var movie = Movie(
       adult: false,
       backdropPath: '/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg',
       id: 533535,

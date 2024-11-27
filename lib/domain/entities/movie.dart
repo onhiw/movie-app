@@ -1,21 +1,29 @@
 import 'package:equatable/equatable.dart';
 
 class Movie extends Equatable {
-  final bool? adult;
-  final String? backdropPath;
-  final int? id;
-  final String? originalLanguage;
-  final String? originalTitle;
-  final String? overview;
-  final double? popularity;
-  final String? posterPath;
-  final DateTime? releaseDate;
-  final String? title;
-  final bool? video;
-  final double? voteAverage;
-  final int? voteCount;
+  bool? adult;
+  String? backdropPath;
+  int? id;
+  String? originalLanguage;
+  String? originalTitle;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  DateTime? releaseDate;
+  String? title;
+  bool? video;
+  double? voteAverage;
+  int? voteCount;
 
-  const Movie({
+  Movie.watchlist({
+    this.id,
+    this.overview,
+    this.posterPath,
+    this.title,
+    this.releaseDate,
+  });
+
+  Movie({
     this.adult,
     this.backdropPath,
     this.id,

@@ -23,6 +23,7 @@ dependencies:
   intl: ^0.18.1
   youtube_player_flutter: ^8.1.2
   modal_bottom_sheet: ^3.0.0
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   mockito: ^5.0.8

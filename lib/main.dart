@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movie_app/domain/entities/movie.dart';
 import 'package:movie_app/injection.dart' as di;
 import 'package:movie_app/persentation/bloc/movie-bloc/movie_bloc.dart';
 import 'package:movie_app/persentation/bloc/movie-search-bloc/movie_search_bloc.dart';
 import 'package:movie_app/persentation/bloc/movie-video-bloc/movie_video_bloc.dart';
+import 'package:movie_app/persentation/bloc/movie-watchlist-bloc/movie_watchlist_bloc.dart';
+import 'package:movie_app/persentation/pages/detail_movie_page.dart';
 import 'package:movie_app/persentation/pages/home_page.dart';
+import 'package:movie_app/persentation/pages/search_movie_page.dart';
+import 'package:movie_app/persentation/pages/watchlist/watchlist_movie_page.dart';
+import 'package:movie_app/utils/routes.dart';
 import 'package:movie_app/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,6 +47,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) => di.locator<MovieSearchBloc>(),
         ),
+        BlocProvider(
+          create: (_) => di.locator<MovieWatchlistBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -54,6 +63,17 @@ class _MyAppState extends State<MyApp> {
           switch (settings.name) {
             case '/':
               return MaterialPageRoute(builder: (_) => const HomePage());
+            case detailMovieRoute:
+              final movie = settings.arguments as Movie;
+              return MaterialPageRoute(
+                builder: (_) => DetailMoviePage(movie: movie),
+                settings: settings,
+              );
+            case watchlistMovieRoute:
+              return MaterialPageRoute(
+                  builder: (_) => const WatchlistMoviePage());
+            case searchMovieRoute:
+              return MaterialPageRoute(builder: (_) => const SearchMoviePage());
             default:
               return MaterialPageRoute(builder: (_) {
                 return const Scaffold(

@@ -7,7 +7,7 @@ import 'package:movie_app/utils/constants.dart';
 import 'package:movie_app/utils/exception.dart';
 
 abstract class MovieRemoteDataSource {
-  Future<MovieResponse> getMovie();
+  Future<MovieResponse> getMovie(String type);
   Future<MovieVideoResponse> getMovieVideo(String id);
   Future<MovieResponse> getMovieSearch(String query);
 }
@@ -18,9 +18,8 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   MovieRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<MovieResponse> getMovie() async {
-    final response = await client.get(
-        Uri.parse('$baseUrl/discover/movie?include_adult=false'),
+  Future<MovieResponse> getMovie(String type) async {
+    final response = await client.get(Uri.parse('$baseUrl/movie/$type'),
         headers: {"Authorization": 'Bearer $token'});
 
     if (response.statusCode == 200) {

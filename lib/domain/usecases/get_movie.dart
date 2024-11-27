@@ -8,7 +8,7 @@ class GetMovie {
 
   GetMovie(this.movieRepository);
 
-  Future<Either<Failure, MovieR>> execute() {
-    return movieRepository.getMovie();
+  Future<Either<Failure, MovieR>> execute(String type) {
+    return movieRepository.getMovie(type);
   }
 }

@@ -13,11 +13,14 @@ import '../../helpers/test_helper.mocks.dart';
 void main() {
   late MovieRepositoryImpl repository;
   late MockMovieRemoteDataSource mockRemoteDataSource;
+  late MockMovieLocalDataSource mockLocalDataSource;
 
   setUp(() {
     mockRemoteDataSource = MockMovieRemoteDataSource();
-    repository =
-        MovieRepositoryImpl(movieRemoteDataSource: mockRemoteDataSource);
+    mockLocalDataSource = MockMovieLocalDataSource();
+    repository = MovieRepositoryImpl(
+        movieRemoteDataSource: mockRemoteDataSource,
+        localDataSource: mockLocalDataSource);
   });
 
   const movieModel = MovieModel(
@@ -34,7 +37,7 @@ void main() {
       voteAverage: 7.7,
       voteCount: 3168);
 
-  const movie = Movie(
+  var movie = Movie(
       adult: false,
       backdropPath: '/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg',
       id: 533535,
@@ -56,12 +59,12 @@ void main() {
         'should return remote data when the call to remote data source is successful',
         () async {
       // arrange
-      when(mockRemoteDataSource.getMovie()).thenAnswer(
+      when(mockRemoteDataSource.getMovie("now_playing")).thenAnswer(
           (_) async => MovieResponse(results: tMovieModelList.toList()));
       // act
-      final result = await repository.getMovie();
+      final result = await repository.getMovie("now_playing");
       // assert
-      verify(mockRemoteDataSource.getMovie());
+      verify(mockRemoteDataSource.getMovie("now_playing"));
 
       final resultList =
           result.getOrElse(() => const MovieResponse(results: []).toEntity());
@@ -72,11 +75,12 @@ void main() {
         'should return server failure when the call to remote data source is unsuccessful',
         () async {
       // arrange
-      when(mockRemoteDataSource.getMovie()).thenThrow(ServerException());
+      when(mockRemoteDataSource.getMovie("now_playing"))
+          .thenThrow(ServerException());
       // act
-      final result = await repository.getMovie();
+      final result = await repository.getMovie("now_playing");
       // assert
-      verify(mockRemoteDataSource.getMovie());
+      verify(mockRemoteDataSource.getMovie("now_playing"));
       expect(
           result,
           equals(const Left(ServerFailure(

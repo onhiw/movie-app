@@ -33,7 +33,7 @@ void main() {
       when(mockHttpClient.get(Uri.parse(baseUrl))).thenAnswer(
           (_) async => http.Response(readJson('dummy_data/movie.json'), 200));
       // act
-      final result = await dataSource.getMovie();
+      final result = await dataSource.getMovie("now_playing");
       // assert
       expect(result, equals(tMovieList));
     });
@@ -45,7 +45,7 @@ void main() {
       when(mockHttpClient.get(Uri.parse(baseUrl)))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.getMovie();
+      final call = dataSource.getMovie("now_playing");
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:movie_app/domain/entities/movie_r.dart';
@@ -15,7 +16,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   Future<void> _fetchMovie(FetchMovie event, Emitter<MovieState> emit) async {
     emit(MovieLoading());
 
-    final data = await getMovie.execute();
+    final data = await getMovie.execute(event.type!);
 
     data.fold((failure) {
       emit(MovieError(failure.message));
