@@ -16,6 +16,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   Future<void> _fetchMovie(FetchMovie event, Emitter<MovieState> emit) async {
     emit(MovieLoading());
 
+    // get movie
     final data = await getMovie.execute(event.type!);
 
     data.fold((failure) {
